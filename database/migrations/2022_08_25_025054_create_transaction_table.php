@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('transaction', function (Blueprint $table) {
             $table->id();
-            $table->integer('appoinment_id');
+            $table->foreignId('appointment_id')->nullable()->index
+                                                ('fk_consultation_to_appointment');
             $table->string('fee_doctor')->nullable();
             $table->string('fee_specialist')->nullable();
             $table->string('fee_hospital')->nullable();
