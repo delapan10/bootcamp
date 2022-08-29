@@ -30,4 +30,11 @@ class Permission extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    //one to Many
+    public function permission_role()
+        {
+            // 2 parameters (path model, field foreign key)
+            return $this->hasMany('App\Models\ManagementAccess\PermissionRole','permission_id');
+        }
 }

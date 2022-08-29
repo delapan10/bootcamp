@@ -15,10 +15,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class User extends Authenticatable
 {
     use HasApiTokens;
-    use HasFactory;
+    // use HasFactory;
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -60,4 +61,29 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+
+    //one to Many
+    public function appointment()
+        {
+            // 2 parameters (path model, field foreign key)
+            return $this->hasMany('App\Models\Operational\Appointment','user_id');
+        }
+
+    //one to Many
+    public function detail_user()
+        {
+            // 2 parameters (path model, field foreign key)
+            return $this->hasMany('App\Models\ManagementAccess\DetailUser','user_id');
+        }
+    
+    
+        //one to Many
+    public function role_user()
+        {
+            // 2 parameters (path model, field foreign key)
+            return $this->hasMany('App\Models\ManagementAccess\RoleUser','user_id');
+        }
+
+
 }
