@@ -74,7 +74,7 @@ class User extends Authenticatable
     public function detail_user()
         {
             // 2 parameters (path model, field foreign key)
-            return $this->hasMany('App\Models\ManagementAccess\DetailUser','user_id');
+            return $this->hasOne('App\Models\ManagementAccess\DetailUser','user_id');
         }
     
     
