@@ -2,7 +2,14 @@
 
 namespace App\Http\Requests\Consultation;
 
+use App\Models\MasterData\Consultation;
+
 use Illuminate\Foundation\Http\FormRequest;
+use Symfony\Component\HttpFoundation\Response;
+
+
+//this rule only at UpdateRequest
+use Illuminate\Validation\Rule;
 
 class UpdateConsultationRequest extends FormRequest
 {
@@ -13,7 +20,9 @@ class UpdateConsultationRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+
+        //create middleware from kernel at here
+        return true;
     }
 
     /**
@@ -24,7 +33,12 @@ class UpdateConsultationRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' =>['required', 'string','max:255', Rule::unique('consultation')
+            ->ignore($this->consultation)],
+            
+            
+            
+            //add validation for this role here
         ];
     }
 }
