@@ -1,6 +1,13 @@
 <?php
 
+use App\Http\Controllers\Frontsite\AppointmentController;
 use Illuminate\Support\Facades\Route;
+
+
+use App\Http\Controllers\Frontsite\LandingController;
+use App\Http\Controllers\Frontsite\ProfileController;
+use App\Http\Controllers\Frontsite\PaymentController;
+use App\Models\ManagementAccess\Role;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,17 +19,29 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::resource('/', LandingController::class);
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::group(['prefix' => 'backsite', 'as' => 'backsite', 'middleware' => ['auth:sanctum','verified']],
+    function(){
+        // return view( 'dashboard');
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-});
+        Route::resource('home', AppointmentController::class);
+
+
+        Route::resource('home', PaymentController::class);
+    } );
+
+
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+// Route::middleware([
+//     'auth:sanctum',
+//     config('jetstream.auth_session'),
+//     'verified'
+// ])->group(function () {
+//     Route::get('/dashboard', function () {
+//         return view('dashboard');
+//     })->name('dashboard');
+// });
